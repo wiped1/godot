@@ -481,7 +481,12 @@ public:
 
 	struct AssertNode : public Node {
 		Node *condition;
-		AssertNode() { type = TYPE_ASSERT; }
+		Node *msg;
+		AssertNode()
+			: condition(0), msg(0)
+		{
+			type = TYPE_ASSERT;
+		}
 	};
 
 	struct BreakpointNode : public Node {

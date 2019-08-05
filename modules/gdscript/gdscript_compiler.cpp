@@ -1522,7 +1522,19 @@ Error GDScriptCompiler::_parse_block(CodeGen &codegen, const GDScriptParser::Blo
 				if (ret2 < 0)
 					return ERR_PARSE_ERROR;
 
+				int msg{0};
+				if (as->msg)
+				{
+					msg = _parse_expression(codegen, as->msg, p_stack_level+1, false);
+					if (msg < 0)
+						return ERR_PARSE_ERROR;
+				}
+
 				codegen.opcodes.push_back(GDScriptFunction::OPCODE_ASSERT);
+				if (as->msg)
+				{
+					codegen.opcodes.push_back(msg);
+				}
 				codegen.opcodes.push_back(ret2);
 #endif
 			} break;

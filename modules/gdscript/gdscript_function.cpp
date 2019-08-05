@@ -1479,16 +1479,16 @@ Variant GDScriptFunction::call(GDScriptInstance *p_instance, const Variant **p_a
 
 #ifdef DEBUG_ENABLED
 				GET_VARIANT_PTR(test, 1);
+				GET_VARIANT_PTR(msg, 2);
 				bool result = test->booleanize();
 
 				if (!result) {
-
-					err_text = "Assertion failed.";
+					err_text = "Assertion failed: " + String(*msg);
 					OPCODE_BREAK;
 				}
 
 #endif
-				ip += 2;
+				ip += 3;
 			}
 			DISPATCH_OPCODE;
 
